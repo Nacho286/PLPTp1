@@ -22,18 +22,21 @@ pad :: Int -> String
 pad i = replicate i ' '
 
 --Ejercicio 1
-foldNave :: undefined
+foldNave :: (Componente->NaveEspacial->NaveEspacial)->Componente->NaveEspacial --Esto estara bien?
 foldNave = undefined
 
 --Ejercicio 2
 capacidad :: NaveEspacial -> Int
-capacidad = undefined
+capacidad comp nav1 nav2= 1 +capacidad nav1 +capacidad nav2
+capacidad comp = 1
 
 poderDeAtaque :: NaveEspacial -> Int
-poderDeAtaque = undefined
+poderDeAtaque comp nav1 nav2 = poderDeAtaque comp + poderDeAtaque nav1 + poderDeAtaque
+poderDeAtaque comp = if comp=Cañón then 1 else 0
 
 puedeVolar :: NaveEspacial -> Bool
-puedeVolar = undefined
+puedeVolar comp nav1 nav2 = puedeVolar comp || puedeVolar nav1 || puedeVolar nav2
+puedeVolar comp = comp==Motor
 
 mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
 mismoPotencial = undefined
