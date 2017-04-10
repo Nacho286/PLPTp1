@@ -28,13 +28,20 @@ foldNave f g (Módulo c n1 n2) = g f c (foldNave f g n1) (foldNave f g n2)
 
 --Ejercicio 2
 capacidad :: NaveEspacial -> Int
-capacidad = foldNave (+1) 
+capacidad = foldNave (+1) sumarTres
+				where
+					sumarTres x y z = x+y+z
 
 poderDeAtaque :: NaveEspacial -> Int
-poderDeAtaque = undefined
+poderDeAtaque = foldNave esCañon sumarTres
+				where
+					esCañon x = if x==Cañón then 1 else 0
+					sumarTres x y z = x+y+z
 
 puedeVolar :: NaveEspacial -> Bool
-puedeVolar = undefined
+puedeVolar = foldNave (==Motor) O
+				where
+					O x y z= x || y || z
 
 mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
 mismoPotencial = undefined
