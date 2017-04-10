@@ -22,12 +22,13 @@ pad :: Int -> String
 pad i = replicate i ' '
 
 --Ejercicio 1
-foldNave :: undefined
-foldNave = undefined
+foldNave :: (Componente->a)->(a->a->a)->NaveEspacial->a
+foldNave f g (Base c) = f c 
+foldNave f g (Módulo c n1 n2) = g f c (foldNave f g n1) (foldNave f g n2)
 
 --Ejercicio 2
 capacidad :: NaveEspacial -> Int
-capacidad = undefined
+capacidad = foldNave (+1) 
 
 poderDeAtaque :: NaveEspacial -> Int
 poderDeAtaque = undefined
