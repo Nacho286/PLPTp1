@@ -22,7 +22,7 @@ pad :: Int -> String
 pad i = replicate i ' '
 
 --Ejercicio 1
-foldNave :: (Componente->a)->(a->a->a)->NaveEspacial->a
+foldNave :: (Componente->a)->(a->a->a->a)->NaveEspacial->a
 foldNave f g (Base c) = f c 
 foldNave f g (Módulo c n1 n2) = g f c (foldNave f g n1) (foldNave f g n2)
 
@@ -43,34 +43,35 @@ puedeVolar = foldNave (==Motor) O
 				where
 					O x y z= x || y || z
 
-mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
-mismoPotencial = undefined
+--mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
+--mismoPotencial = undefined
 
---Ejercicio 3
 
-mayorCapacidad :: [NaveEspacial] -> NaveEspacial
-mayorCapacidad = undefined
+----Ejercicio 3
 
---Ejercicio 4
+--mayorCapacidad :: [NaveEspacial] -> NaveEspacial
+--mayorCapacidad = undefined
 
-transformar :: (Componente -> Componente) -> NaveEspacial -> NaveEspacial
-transformar = undefined
+----Ejercicio 4
 
--- Ejercicio 5
-impactar :: Peligro -> NaveEspacial -> NaveEspacial
-impactar = undefined
+--transformar :: (Componente -> Componente) -> NaveEspacial -> NaveEspacial
+--transformar = undefined
 
--- Ejercicio 6
-maniobrar :: NaveEspacial -> [Peligro] -> NaveEspacial
-maniobrar = undefined
+---- Ejercicio 5
+--impactar :: Peligro -> NaveEspacial -> NaveEspacial
+--impactar = undefined
 
--- Ejercicio 7
-pruebaDeFuego :: [Peligro] -> [NaveEspacial] -> [NaveEspacial]
-pruebaDeFuego = undefined
+---- Ejercicio 6
+--maniobrar :: NaveEspacial -> [Peligro] -> NaveEspacial
+--maniobrar = undefined
 
--- Ejercicio 8
-componentesPorNivel :: NaveEspacial -> Int -> Int
-componentesPorNivel = undefined
+---- Ejercicio 7
+--pruebaDeFuego :: [Peligro] -> [NaveEspacial] -> [NaveEspacial]
+--pruebaDeFuego = undefined
 
-dimensiones :: NaveEspacial -> (Int, Int)
-dimensiones = undefined
+---- Ejercicio 8
+--componentesPorNivel :: NaveEspacial -> Int -> Int
+--componentesPorNivel = undefined
+
+--dimensiones :: NaveEspacial -> (Int, Int)
+--dimensiones = undefined
