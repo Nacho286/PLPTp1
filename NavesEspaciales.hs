@@ -22,15 +22,29 @@ pad :: Int -> String
 pad i = replicate i ' '
 
 --Ejercicio 1
-foldNave :: (Componente->a)->(a->a->a->a)->NaveEspacial->a
+foldNave :: (Componente->a)->(Componente->a->a->a)->NaveEspacial->a
 foldNave f g (Base c) = f c
-foldNave f g (Módulo c n1 n2) = g (f c) (foldNave f g n1) (foldNave f g n2)
+foldNave f g (Módulo c n1 n2) = g  c (foldNave f g n1) (foldNave f g n2)
+
+
+--Auxiliar?--- 
+toInt:: Bool-> Int
+toInt True = 1
+toInt False = 0
+
+esComponente:: Componente-> Componente->Bool
+esComponente c1 c2 = c1 == c2
+
 
 --Ejercicio 2
 capacidad :: NaveEspacial -> Int
-capacidad = foldNave const(1) sumarTres
- 				where sumarTres x y z = x+y+z
---
+capacidad = foldNave (toInt.esComponente Contenedor) (\c x y -> x + y + toInt(esComponente Contenedor c))
+
+
+poderDeAtaque :: NaveEspacial -> Int
+poderDeAtaque = foldNave(toInt.esComponente Motor) (\c x y -> x + y + toInt(esComponente Motor c))
+
+
 -- poderDeAtaque :: NaveEspacial -> Int
 -- poderDeAtaque = foldNave esCañon sumarTres
 -- 				where
