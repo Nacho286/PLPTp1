@@ -54,7 +54,7 @@ puedeVolar :: NaveEspacial -> Bool
 puedeVolar = foldNave (esComponente Motor) (\c x y -> x || y || (esComponente Motor c))
 
 mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
-mismoPotencial = undefined
+mismoPotencial x y = (capacidad x)==(capacidad y) &&(poderDeAtaque x)==(poderDeAtaque y) && (poderDeDefensa x) == (poderDeDefensa y) && (poderDeVuelo x) == (poderDeVuelo y)
 
 
 ----Ejercicio 3
