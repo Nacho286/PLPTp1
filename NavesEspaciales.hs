@@ -1,5 +1,5 @@
-module NavesEspaciales (Componente(Contenedor, Motor, Escudo, Cañón), NaveEspacial(Módulo, Base), Dirección(Babor, Estribor), TipoPeligro(Pequeño, Grande, Torpedo), Peligro,foldNave, capacidad, poderDeAtaque, puedeVolar, mismoPotencial, mayorCapacidad) where
--- , transformar, impactar, maniobrar, pruebaDeFuego, componentesPorNivel, dimensiones
+module NavesEspaciales (Componente(Contenedor, Motor, Escudo, Cañón), NaveEspacial(Módulo, Base), Dirección(Babor, Estribor), TipoPeligro(Pequeño, Grande, Torpedo), Peligro,foldNave, capacidad, poderDeAtaque, puedeVolar, mismoPotencial, mayorCapacidad, transformar, impactar, maniobrar, pruebaDeFuego, componentesPorNivel, dimensiones) where
+ 
 data Componente = Contenedor | Motor | Escudo | Cañón deriving (Eq, Show)
 
 data NaveEspacial = Módulo Componente NaveEspacial NaveEspacial | Base Componente deriving Eq
@@ -64,24 +64,25 @@ mayorCapacidad = foldr (\x y -> if((capacidad x)<(capacidad y)) then y else x) (
 
 ----Ejercicio 4
 
---transformar :: (Componente -> Componente) -> NaveEspacial -> NaveEspacial
---transformar = undefined
+transformar :: (Componente -> Componente) -> NaveEspacial -> NaveEspacial
+transformar = undefined
 
 ---- Ejercicio 5
---impactar :: Peligro -> NaveEspacial -> NaveEspacial
---impactar = undefined
+impactar :: Peligro -> NaveEspacial -> NaveEspacial
+impactar = undefined
 
 ---- Ejercicio 6
---maniobrar :: NaveEspacial -> [Peligro] -> NaveEspacial
---maniobrar = undefined
+maniobrar :: NaveEspacial -> [Peligro] -> NaveEspacial
+maniobrar = foldl (flip impactar)
 
 ---- Ejercicio 7
---pruebaDeFuego :: [Peligro] -> [NaveEspacial] -> [NaveEspacial]
---pruebaDeFuego = undefined
+pruebaDeFuego :: [Peligro] -> [NaveEspacial] -> [NaveEspacial]
+pruebaDeFuego = undefined 
+--pruebaDeFuego = (filter puedeVolar) (foldl (flip maniobrar)) 
 
 ---- Ejercicio 8
---componentesPorNivel :: NaveEspacial -> Int -> Int
---componentesPorNivel = undefined
+componentesPorNivel :: NaveEspacial -> Int -> Int
+componentesPorNivel = undefined
 
---dimensiones :: NaveEspacial -> (Int, Int)
---dimensiones = undefined
+dimensiones :: NaveEspacial -> (Int, Int)
+dimensiones = undefined
