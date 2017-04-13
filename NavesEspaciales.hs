@@ -1,5 +1,5 @@
-module NavesEspaciales (Componente(Contenedor, Motor, Escudo, Cañón), NaveEspacial(Módulo, Base), Dirección(Babor, Estribor), TipoPeligro(Pequeño, Grande, Torpedo), Peligro,foldNave, capacidad) where
--- , poderDeAtaque, puedeVolar, mismoPotencial, mayorCapacidad, transformar, impactar, maniobrar, pruebaDeFuego, componentesPorNivel, dimensiones
+module NavesEspaciales (Componente(Contenedor, Motor, Escudo, Cañón), NaveEspacial(Módulo, Base), Dirección(Babor, Estribor), TipoPeligro(Pequeño, Grande, Torpedo), Peligro,foldNave, capacidad, poderDeAtaque, puedeVolar) where
+-- , mismoPotencial, mayorCapacidad, transformar, impactar, maniobrar, pruebaDeFuego, componentesPorNivel, dimensiones
 data Componente = Contenedor | Motor | Escudo | Cañón deriving (Eq, Show)
 
 data NaveEspacial = Módulo Componente NaveEspacial NaveEspacial | Base Componente deriving Eq
@@ -27,7 +27,7 @@ foldNave f g (Base c) = f c
 foldNave f g (Módulo c n1 n2) = g  c (foldNave f g n1) (foldNave f g n2)
 
 
---Auxiliar?--- 
+--Auxiliar?---
 toInt:: Bool-> Int
 toInt True = 1
 toInt False = 0
@@ -42,19 +42,11 @@ capacidad = foldNave (toInt.esComponente Contenedor) (\c x y -> x + y + toInt(es
 
 
 poderDeAtaque :: NaveEspacial -> Int
-poderDeAtaque = foldNave(toInt.esComponente Motor) (\c x y -> x + y + toInt(esComponente Motor c))
+poderDeAtaque = foldNave(toInt.esComponente Cañón) (\c x y -> x + y + toInt(esComponente Cañón c))
 
 
--- poderDeAtaque :: NaveEspacial -> Int
--- poderDeAtaque = foldNave esCañon sumarTres
--- 				where
--- 					esCañon x = if x==Cañón then 1 else 0
--- 					sumarTres x y z = x+y+z
---
--- puedeVolar :: NaveEspacial -> Bool
--- puedeVolar = foldNave (==Motor) disyuncion
--- 				where
--- 					disyuncion x y z= x || y || z
+puedeVolar :: NaveEspacial -> Bool
+puedeVolar = foldNave (esComponente Motor) (\c x y -> x || y || (esComponente Motor c))
 
 --mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
 --mismoPotencial = undefined
