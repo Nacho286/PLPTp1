@@ -1,5 +1,5 @@
 module NavesEspaciales (Componente(Contenedor, Motor, Escudo, Cañón), NaveEspacial(Módulo, Base), Dirección(Babor, Estribor), TipoPeligro(Pequeño, Grande, Torpedo), Peligro,foldNave, capacidad, poderDeAtaque, puedeVolar, mismoPotencial, mayorCapacidad, transformar, impactar, maniobrar, pruebaDeFuego, componentesPorNivel, dimensiones) where
- 
+
 data Componente = Contenedor | Motor | Escudo | Cañón deriving (Eq, Show)
 
 data NaveEspacial = Módulo Componente NaveEspacial NaveEspacial | Base Componente deriving Eq
@@ -54,8 +54,7 @@ puedeVolar :: NaveEspacial -> Bool
 puedeVolar = foldNave (esComponente Motor) (\c x y -> x || y || (esComponente Motor c))
 
 mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
-mismoPotencial x y = (capacidad x)==(capacidad y) &&(poderDeAtaque x)==(poderDeAtaque y) && (poderDeDefensa x) == (poderDeDefensa y) && (poderDeVuelo x) == (poderDeVuelo y)
-
+mismoPotencial =(\x y ->(capacidad x)==(capacidad y) &&(poderDeAtaque x)==(poderDeAtaque y) && (poderDeDefensa x) == (poderDeDefensa y) && (poderDeVuelo x) == (poderDeVuelo y))
 
 ----Ejercicio 3
 
@@ -77,8 +76,8 @@ maniobrar = foldl (flip impactar)
 
 ---- Ejercicio 7
 pruebaDeFuego :: [Peligro] -> [NaveEspacial] -> [NaveEspacial]
-pruebaDeFuego = undefined 
---pruebaDeFuego = (filter puedeVolar) (foldl (flip maniobrar)) 
+pruebaDeFuego = (\x y -> filter puedeVolar  [(flip maniobrar) x i| i <-y ])
+--pruebaDeFuego = (filter puedeVolar) (foldl (flip maniobrar))
 
 ---- Ejercicio 8
 componentesPorNivel :: NaveEspacial -> Int -> Int
