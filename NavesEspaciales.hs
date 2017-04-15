@@ -21,12 +21,6 @@ padNave nivel acum doPad (Módulo x i d) = (if doPad then pad (4*nivel + acum) e
 pad :: Int -> String
 pad i = replicate i ' '
 
---Ejercicio 1
-foldNave :: (Componente->a)->(Componente->a->a->a)->NaveEspacial->a
-foldNave f g (Base c) = f c
-foldNave f g (Módulo c n1 n2) = g  c (foldNave f g n1) (foldNave f g n2)
-
-
 --Auxiliar?---
 toInt:: Bool-> Int
 toInt True = 1
@@ -41,6 +35,17 @@ poderDeVuelo = foldNave(toInt.esComponente Motor) (\c x y -> x + y + toInt(esCom
 poderDeDefensa:: NaveEspacial -> Int
 poderDeDefensa = foldNave(toInt.esComponente Escudo) (\c x y -> x + y + toInt(esComponente Escudo c))
 
+igualesComponentes:: (NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->NaveEspacial->NaveEspacial->Bool
+igualesComponentes f1 f2 f3 f4 x y = f1 x == f1 y && f2 x == f2 y && f3 x == f3 y && f4 x == f4 y
+
+
+--Ejercicio 1
+foldNave :: (Componente->a)->(Componente->a->a->a)->NaveEspacial->a
+foldNave f g (Base c) = f c
+foldNave f g (Módulo c n1 n2) = g  c (foldNave f g n1) (foldNave f g n2)
+
+
+
 --Ejercicio 2
 capacidad :: NaveEspacial -> Int
 capacidad = foldNave (toInt.esComponente Contenedor) (\c x y -> x + y + toInt(esComponente Contenedor c))
@@ -53,18 +58,22 @@ poderDeAtaque = foldNave(toInt.esComponente Cañón) (\c x y -> x + y + toInt(es
 puedeVolar :: NaveEspacial -> Bool
 puedeVolar = foldNave (esComponente Motor) (\c x y -> x || y || (esComponente Motor c))
 
+
 mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
 mismoPotencial =(\x y ->(capacidad x)==(capacidad y) &&(poderDeAtaque x)==(poderDeAtaque y) && (poderDeDefensa x) == (poderDeDefensa y) && (poderDeVuelo x) == (poderDeVuelo y))
+--mismoPotencial = igualesComponentes capacidad poderDeAtaque poderDeDefensa poderDeVuelo
+
 
 ----Ejercicio 3
 
+--PRE: La lista es no vacía. Por que devuelve una con un motor?
 mayorCapacidad :: [NaveEspacial] -> NaveEspacial
 mayorCapacidad = foldr (\x y -> if((capacidad x)<(capacidad y)) then y else x) (Base Motor)
 
 ----Ejercicio 4
 
 transformar :: (Componente -> Componente) -> NaveEspacial -> NaveEspacial
-transformar = undefined
+transformar f = foldNave (\c-> Base (f c)) (\c x y->Módulo (f c) x y ) 
 
 ---- Ejercicio 5
 impactar :: Peligro -> NaveEspacial -> NaveEspacial
