@@ -66,14 +66,14 @@ mismoPotencial =(\x y ->(capacidad x)==(capacidad y) &&(poderDeAtaque x)==(poder
 
 ----Ejercicio 3
 
---PRE: La lista es no vacía. Por que devuelve una con un motor?
+--PRE: La lista es no vacía. Por que devuelve una con un motor? Es para que sea un caso base de capacidad 0, en caso de que la lista sea de un elemento y tambien de capacidad 0 devuelve la nave de la lista
 mayorCapacidad :: [NaveEspacial] -> NaveEspacial
 mayorCapacidad = foldr (\x y -> if((capacidad x)<(capacidad y)) then y else x) (Base Motor)
 
 ----Ejercicio 4
 
 transformar :: (Componente -> Componente) -> NaveEspacial -> NaveEspacial
-transformar f = foldNave (\c-> Base (f c)) (\c x y->Módulo (f c) x y ) 
+transformar f = foldNave (\c-> Base (f c)) (\c x y->Módulo (f c) x y )
 
 ---- Ejercicio 5
 impactar :: Peligro -> NaveEspacial -> NaveEspacial
