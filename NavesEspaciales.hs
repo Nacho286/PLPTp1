@@ -35,7 +35,8 @@ poderDeVuelo = foldNave(toInt.esComponente Motor) (\c x y -> x + y + toInt(esCom
 poderDeDefensa:: NaveEspacial -> Int
 poderDeDefensa = foldNave(toInt.esComponente Escudo) (\c x y -> x + y + toInt(esComponente Escudo c))
 
-igualesComponentes:: (NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->NaveEspacial->NaveEspacial->Bool
+--igualesComponentes:: (NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->NaveEspacial->NaveEspacial->Bool
+--
 igualesComponentes f1 f2 f3 f4 x y = f1 x == f1 y && f2 x == f2 y && f3 x == f3 y && f4 x == f4 y
 
 
@@ -66,7 +67,7 @@ mismoPotencial =(\x y ->(capacidad x)==(capacidad y) &&(poderDeAtaque x)==(poder
 
 ----Ejercicio 3
 
---PRE: La lista es no vacía. Por que devuelve una con un motor? Es para que sea un caso base de capacidad 0, en caso de que la lista sea de un elemento y tambien de capacidad 0 devuelve la nave de la lista
+--PRE: La lista es no vacía. 
 mayorCapacidad :: [NaveEspacial] -> NaveEspacial
 mayorCapacidad = foldr (\x y -> if((capacidad x)<(capacidad y)) then y else x) (Base Motor)
 
@@ -86,7 +87,7 @@ thrdTripla :: (a,b,c) -> c
 thrdTripla (_,_,z) = z
 
 desenlaceAlImpacto :: TipoPeligro -> NaveEspacial -> NaveEspacial
-desenlaceAlImpacto t (Base c) = if esComponente Escudo c then (Base c) else error "Exploto la nave"
+desenlaceAlImpacto t (Base c) = if defiendeTipoPeligroPequeño then (Base c) else error "Exploto la nave"
 desenlaceAlImpacto t (Módulo c n1 n2)
  | defiendeTipoPeligroGrande || defiendeTipoPeligroPequeño = (Módulo c n1 n2)
  | otherwise = (Base Contenedor)
