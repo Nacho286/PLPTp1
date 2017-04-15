@@ -76,8 +76,32 @@ transformar :: (Componente -> Componente) -> NaveEspacial -> NaveEspacial
 transformar f = foldNave (\c-> Base (f c)) (\c x y->Módulo (f c) x y )
 
 ---- Ejercicio 5
+fstTripla :: (a,b,c) -> a
+fstTripla (x,_,_) =  x
+
+sndTripla :: (a,b,c) -> b
+sndTripla (_,y,_) = y
+
+thrdTripla :: (a,b,c) -> c
+thrdTripla (_,_,z) = z
+
+desenlaceAlImpacto :: TipoPeligro -> NaveEspacial -> NaveEspacial
+desenlaceAlImpacto t (Base c) = if esComponente Escudo c then (Base c) else error "Exploto la nave"
+desenlaceAlImpacto t (Módulo c n1 n2)
+ | defiendeTipoPeligroGrande || defiendeTipoPeligroPequeño = (Módulo c n1 n2)
+ | otherwise = (Base Contenedor)
+ where defiendeTipoPeligroGrande = t==Grande && esComponente Escudo c && (poderDeAtaque n1 >0 || poderDeAtaque n2 >0)
+       defiendeTipoPeligroPequeño = t==Pequeño && esComponente Escudo c
+
+
+--PRE: El Peligro siempre apunta a alguna parte de la nave (el nivel) sino no seria peligro
 impactar :: Peligro -> NaveEspacial -> NaveEspacial
-impactar = undefined
+impactar p (Base c) = desenlaceAlImpacto (thrdTripla p) (Base c)
+impactar p (Módulo c n1 n2)
+ | (sndTripla p) == 0 = desenlaceAlImpacto (thrdTripla p) (Módulo c n1 n2)
+ | (fstTripla p) == Babor = (Módulo c (impactar (fstTripla p, (sndTripla p) -1, thrdTripla p) n1) n2)
+ | (fstTripla p) == Estribor = (Módulo c n1 (impactar (fstTripla p, (sndTripla p) -1, thrdTripla p) n2))
+--el patron de recursion del ejercicio no se ajusta con el esquema de foldNave y seria poco declarativo
 
 ---- Ejercicio 6
 maniobrar :: NaveEspacial -> [Peligro] -> NaveEspacial
@@ -93,4 +117,5 @@ componentesPorNivel :: NaveEspacial -> Int -> Int
 componentesPorNivel = undefined
 
 dimensiones :: NaveEspacial -> (Int, Int)
-dimensiones = undefined
+dimensiones = foldNave (\c -> (1,1)) (\c x y -> ((max (fst x) (fst y)) + 1, 1))
+--Falta la parte del ancho

@@ -18,6 +18,15 @@ nave8 = Módulo Contenedor nave1 nave6
 nave9 = Módulo Escudo 
 		(Módulo Escudo (Módulo Escudo (Base Escudo) (Base Cañón)) (Módulo Motor (Base Contenedor) (Base Motor))) 
 		(Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
+nave10 = Módulo Escudo 
+        (Módulo Escudo (Módulo Escudo (Base Escudo) (Base Motor)) (Módulo Motor (Base Contenedor) (Base Motor))) 
+        (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
+nave11 = Módulo Escudo 
+        (Base Contenedor) 
+        (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
+nave12 = Módulo Escudo 
+        (Módulo Escudo (Base Contenedor) (Módulo Motor (Base Contenedor) (Base Motor)))
+        (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
 
 soloUnMotor = Base Motor
 puroContenedor = Módulo Contenedor (Base Contenedor) (Base Contenedor)
@@ -64,7 +73,11 @@ testsEj4 = test [
   ]
 
 testsEj5 = test [
-  0 ~=? 0 --Cambiar esto por tests verdaderos.
+    nave9 ~=? impactar (Babor, 0, Grande) nave9,
+    contenedorSolo ~=? impactar (Babor, 0, Torpedo) nave9,
+    nave11 ~=? impactar (Babor, 1, Grande) nave10,
+    nave12 ~=? impactar (Babor, 2, Grande) nave10
+    --nave1 ~=? impactar (Babor, 0, Pequeño) nave1
   ]
 
 testsEj6 = test [
@@ -76,7 +89,11 @@ testsEj7 = test [
   ]
 
 testsEj8 = test [
-  (4,6) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)])
+  (4,1) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)]),
+  (1,1) ~=? dimensiones nave1,
+  (4,1) ~=? dimensiones nave9,
+  (3,1) ~=? dimensiones nave4
+  --(4,6) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)])
   ]
 
 
