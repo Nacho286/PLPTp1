@@ -121,6 +121,8 @@ pruebaDeFuego = (\x y -> filter puedeVolar  [(flip maniobrar) x i| i <-y ])
 ---- Ejercicio 8
 
 --Uhm, esto parece funcionar....
+--El parametro a ahora es int->int. La idea la tomé del ejercicio de take que hicimos en clase, pensando a foldr como una funcion que devuelve funciones.
+
 componentesPorNivel :: NaveEspacial -> Int -> Int
 componentesPorNivel n x = foldNave(\_ -> \i -> toInt $ i == 0) (\_ frecu grecu -> \i -> toInt(i==0) + toInt(i/=0)*frecu(i-1) + grecu(i-1)) n x
 
