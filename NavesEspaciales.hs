@@ -122,7 +122,7 @@ pruebaDeFuego = (\x y -> filter puedeVolar  [(flip maniobrar) x i| i <-y ])
 
 --Uhm, esto parece funcionar....
 componentesPorNivel :: NaveEspacial -> Int -> Int
-componentesPorNivel n x = foldNave(\_ -> \i -> toInt $ i == 0) (\_ frecu grecu -> \i -> if i == 0 then 1 else frecu(i-1) + grecu(i-1)) n x
+componentesPorNivel n x = foldNave(\_ -> \i -> toInt $ i == 0) (\_ frecu grecu -> \i -> toInt(i==0) + toInt(i/=0)*frecu(i-1) + grecu(i-1)) n x
 
 dimensiones :: NaveEspacial -> (Int, Int)
 dimensiones = foldNave (\c -> (1,1)) (\c x y -> ((max (fst x) (fst y)) + 1, 1))
