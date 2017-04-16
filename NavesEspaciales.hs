@@ -66,7 +66,7 @@ mismoPotencial =(\x y ->(capacidad x)==(capacidad y) &&(poderDeAtaque x)==(poder
 
 ----Ejercicio 3
 
---PRE: La lista es no vacía. 
+--PRE: La lista es no vacía.
 mayorCapacidad :: [NaveEspacial] -> NaveEspacial
 mayorCapacidad = foldr (\x y -> if((capacidad x)<(capacidad y)) then y else x) (Base Motor)
 
@@ -98,7 +98,9 @@ desenlaceAlImpacto t (Módulo c n1 n2)
 
 --PRE: El Peligro siempre apunta a alguna parte de la nave (el nivel) sino no seria peligro
 impactar :: Peligro -> NaveEspacial -> NaveEspacial
-impactar p (Base c) = desenlaceAlImpacto (thrdTripla p) (Base c)
+impactar p (Base c)
+ | (sndTripla p) == 0 = desenlaceAlImpacto (thrdTripla p) (Base c)
+ | otherwise = (Base c)
 impactar p (Módulo c n1 n2)
  | (sndTripla p) == 0 = desenlaceAlImpacto (thrdTripla p) (Módulo c n1 n2)
  | (fstTripla p) == Babor = (Módulo c (impactar (fstTripla p, (sndTripla p) -1, thrdTripla p) n1) n2)
