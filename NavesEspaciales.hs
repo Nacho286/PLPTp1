@@ -96,7 +96,7 @@ desenlaceAlImpacto t (Módulo c n1 n2)
        defiendeTipoPeligroPequeño = t==Pequeño && esComponente Escudo c
 
 
---PRE: El Peligro siempre apunta a alguna parte de la nave (el nivel) sino no seria peligro
+
 impactar :: Peligro -> NaveEspacial -> NaveEspacial
 impactar p (Base c)
  | (sndTripla p) == 0 = desenlaceAlImpacto (thrdTripla p) (Base c)
