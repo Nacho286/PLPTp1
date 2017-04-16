@@ -98,10 +98,11 @@ testsEj7 = test [
   ]
 
 testsEj8 = test [
-  (4,1) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)]),
+  (4,6) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)]),
   (1,1) ~=? dimensiones nave1,
-  (4,1) ~=? dimensiones nave9,
-  (3,1) ~=? dimensiones nave4
+  (4,8) ~=? dimensiones nave9,
+  (3,4) ~=? dimensiones nave4,
+	(3,2) ~=? dimensiones desbalanceado
   --(4,6) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)])
   ]
 
