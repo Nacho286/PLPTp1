@@ -46,7 +46,6 @@ foldNave f g (Base c) = f c
 foldNave f g (Módulo c n1 n2) = g  c (foldNave f g n1) (foldNave f g n2)
 
 
-
 --Ejercicio 2
 capacidad :: NaveEspacial -> Int
 capacidad = foldNave (toInt.esComponente Contenedor) (\c x y -> x + y + toInt(esComponente Contenedor c))
@@ -86,8 +85,10 @@ sndTripla (_,y,_) = y
 thrdTripla :: (a,b,c) -> c
 thrdTripla (_,_,z) = z
 
+--En el caso Base c puse lo mismo que en defiendeTipoPeligroPequeño porque me sale fuera de scope. Mejorar
+
 desenlaceAlImpacto :: TipoPeligro -> NaveEspacial -> NaveEspacial
-desenlaceAlImpacto t (Base c) = if defiendeTipoPeligroPequeño then (Base c) else error "Exploto la nave"
+desenlaceAlImpacto t (Base c) = if t==Pequeño && esComponente Escudo c then (Base c) else Base Contenedor
 desenlaceAlImpacto t (Módulo c n1 n2)
  | defiendeTipoPeligroGrande || defiendeTipoPeligroPequeño = (Módulo c n1 n2)
  | otherwise = (Base Contenedor)
@@ -111,6 +112,7 @@ maniobrar = foldl (flip impactar)
 ---- Ejercicio 7
 pruebaDeFuego :: [Peligro] -> [NaveEspacial] -> [NaveEspacial]
 pruebaDeFuego = (\x y -> filter puedeVolar  [(flip maniobrar) x i| i <-y ])
+
 --pruebaDeFuego = (filter puedeVolar) (foldl (flip maniobrar))
 
 ---- Ejercicio 8
