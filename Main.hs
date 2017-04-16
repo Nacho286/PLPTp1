@@ -15,16 +15,16 @@ nave5 = Módulo Contenedor nave3 nave2
 nave6 = Módulo Contenedor nave4 nave1
 nave7 = Módulo Contenedor nave1 nave5
 nave8 = Módulo Contenedor nave1 nave6
-nave9 = Módulo Escudo 
-		(Módulo Escudo (Módulo Escudo (Base Escudo) (Base Cañón)) (Módulo Motor (Base Contenedor) (Base Motor))) 
+nave9 = Módulo Escudo
+		(Módulo Escudo (Módulo Escudo (Base Escudo) (Base Cañón)) (Módulo Motor (Base Contenedor) (Base Motor)))
 		(Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
-nave10 = Módulo Escudo 
-        (Módulo Escudo (Módulo Escudo (Base Escudo) (Base Motor)) (Módulo Motor (Base Contenedor) (Base Motor))) 
+nave10 = Módulo Escudo
+        (Módulo Escudo (Módulo Escudo (Base Escudo) (Base Motor)) (Módulo Motor (Base Contenedor) (Base Motor)))
         (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
-nave11 = Módulo Escudo 
-        (Base Contenedor) 
+nave11 = Módulo Escudo
+        (Base Contenedor)
         (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
-nave12 = Módulo Escudo 
+nave12 = Módulo Escudo
         (Módulo Escudo (Base Contenedor) (Módulo Motor (Base Contenedor) (Base Motor)))
         (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
 
@@ -61,11 +61,19 @@ allTests = test [
 
 testsEj2 = test [
   0 ~=? capacidad soloUnMotor,
-  3 ~=? capacidad puroContenedor
+  3 ~=? capacidad puroContenedor,
+	0 ~=? poderDeAtaque nave1,
+  2 ~=? poderDeAtaque nave9,
+	True ~=? puedeVolar soloUnMotor,
+  False ~=? puedeVolar protegido,
+	True ~=? mismoPotencial nave2 nave3,
+  False ~=? mismoPotencial puroContenedor protegido
   ]
 
 testsEj3 = test [
-  0 ~=? 0 --Cambiar esto por tests verdaderos.
+  nave1 ~=? mayorCapacidad [nave1],
+	nave12 ~=? mayorCapacidad [nave1,nave9,nave2,nave3,protegido,puroContenedor,nave12,nave11,otroCañon,desbalanceado],
+	nave9 ~=? mayorCapacidad [nave1,nave9,nave2,nave3,protegido,puroContenedor,nave11,otroCañon,desbalanceado]
   ]
 
 testsEj4 = test [
@@ -76,12 +84,13 @@ testsEj5 = test [
     nave9 ~=? impactar (Babor, 0, Grande) nave9,
     contenedorSolo ~=? impactar (Babor, 0, Torpedo) nave9,
     nave11 ~=? impactar (Babor, 1, Grande) nave10,
-    nave12 ~=? impactar (Babor, 2, Grande) nave10
-    --nave1 ~=? impactar (Babor, 0, Pequeño) nave1
+    nave12 ~=? impactar (Babor, 2, Grande) nave10,
+    (Base Contenedor) ~=? impactar (Babor, 0, Pequeño) nave1
   ]
 
 testsEj6 = test [
-  0 ~=? 0 --Cambiar esto por tests verdaderos.
+  nave1 ~=? maniobrar nave1  [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)],
+	puroContenedor ~=? maniobrar nave7 [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)]
   ]
 
 testsEj7 = test [
@@ -97,6 +106,6 @@ testsEj8 = test [
   ]
 
 
---Ejemplos de referencia para maniobrar:	
+--Ejemplos de referencia para maniobrar:
 --maniobrar nave9 [(Babor, 0, Grande),(Babor,2,Torpedo),(Estribor,0,Pequeño)] destruye solo el subárbol izquierdo del subárbol izquierdo.
 --maniobrar nave9 [(Estribor,0,Pequeño),(Babor,2,Torpedo),(Babor, 1, Grande)] destruye todo el subárbol izquierdo.
