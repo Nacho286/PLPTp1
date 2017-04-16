@@ -127,5 +127,11 @@ componentesPorNivel :: NaveEspacial -> Int -> Int
 componentesPorNivel n x = foldNave(\_ -> \i -> toInt $ i == 0) (\_ frecu grecu -> \i -> toInt(i==0) + toInt(i/=0)*frecu(i-1) + grecu(i-1)) n x
 
 dimensiones :: NaveEspacial -> (Int, Int)
-dimensiones = foldNave (\c -> (1,1)) (\c x y -> ((max (fst x) (fst y)) + 1, 1))
+dimensiones = (\c->(largo c, ancho c))
 --Falta la parte del ancho
+
+largo :: NaveEspacial -> Int
+largo = foldNave (\c -> 1) (\c x y -> ((max  x y) + 1))
+
+ancho :: NaveEspacial -> Int
+ancho = (\c -> maximum [componentesPorNivel c i | i <-[0..largo c] ])
