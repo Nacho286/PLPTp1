@@ -29,6 +29,9 @@ nave12 = Módulo Escudo
         (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
 nave13=  Módulo Contenedor (Módulo Motor (Base Cañón) (Base Cañón)) (Módulo Cañón(Base Cañón) (Base Motor))
 nave14 = Módulo Contenedor (Módulo Contenedor(Módulo Cañón(Base Cañón)(Base Motor)) (Módulo Motor(Base Cañón)(Base Cañón)))(Base Motor)
+nave9impactada = Módulo Escudo
+    (Módulo Escudo (Base Contenedor) (Módulo Motor (Base Contenedor) (Base Motor)))
+    (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
 soloUnMotor = Base Motor
 puroContenedor = Módulo Contenedor (Base Contenedor) (Base Contenedor)
 tresCañones = Módulo Cañón (Base Cañón) (Base Cañón)
@@ -42,7 +45,33 @@ protegido = Módulo Escudo (Base Contenedor) (Base Cañón)
 protegidoNivel1Estribor = Módulo Contenedor soloUnMotor protegido
 
 superProtegido = Módulo Motor protegido protegido
+cazadorLigero = Módulo Escudo 
+                (Módulo Motor (Base Cañón) (Módulo Cañón (Base Contenedor) (Base Contenedor)))
+                (Módulo Motor (Base Cañón)(Base Cañón)) 
+destructor =  Módulo Escudo d1 d2
+acorazado = Módulo Escudo
+            (Módulo Escudo a5 a6)
+            aEstribor
 
+aEstribor = Módulo Escudo(Módulo Escudo(Módulo Escudo a7 a7)(Módulo Escudo a7 a7))(Módulo Escudo(Módulo Escudo a7 a7)(Módulo Escudo a7 a7))           
+a7 = (Módulo Escudo (Base Cañón)(Base Escudo))
+
+a1 = (Módulo Escudo (Base Escudo)(Base Cañón))
+a2 = Módulo Escudo a1 a1
+a3 = Módulo Cañón (Base Motor)(Base Motor)
+a4 = Módulo Escudo a1 a3
+a5 = Módulo Escudo a2 a4
+a6 = Módulo Escudo a4 aTripulacion
+aTripulacion = Módulo Contenedor a1 a3 
+     
+d1 = Módulo Escudo 
+    (Módulo Cañón(Módulo Escudo(Base Cañón)(Base Cañón))(Base Contenedor))
+    (Módulo Motor(puroCañon)(puroCañon))
+d2 = Módulo Escudo 
+    (Módulo Motor(puroCañon)(puroCañon))
+  (Módulo Cañón(Base Contenedor)(Módulo Escudo(Base Cañón)(Base Cañón)))
+  
+puroCañon =  Módulo Cañón (Base Cañón) (Base Cañón)
 desbalanceado = Módulo Escudo (Base Contenedor) protegido
 
 
@@ -77,9 +106,6 @@ testsEj3 = test [
 	nave9 ~=? mayorCapacidad [nave1,nave9,nave2,nave3,protegido,puroContenedor,nave11,otroCañon,desbalanceado]
   ]
 
-
-
-
 testsEj4 = test [
   puroContenedor ~=? transformar (\c-> Contenedor) nave2,
   puroContenedor ~=? transformar (\c-> Contenedor) nave3,
@@ -94,12 +120,21 @@ testsEj5 = test [
     contenedorSolo ~=? impactar (Babor, 0, Torpedo) nave9,
     nave11 ~=? impactar (Babor, 1, Grande) nave10,
     nave12 ~=? impactar (Babor, 2, Grande) nave10,
-    (Base Contenedor) ~=? impactar (Babor, 0, Pequeño) nave1
+    (Base Contenedor) ~=? impactar (Babor, 0, Pequeño) nave1,
+    Base Contenedor ~=? impactar(Babor,0,Pequeño) nave6,
+    Base Contenedor ~=? impactar(Babor,0,Torpedo) nave6,
+    Base Contenedor ~=? impactar(Babor,0,Grande) nave6,
+    nave4 ~=? impactar(Babor,2,Pequeño) nave4,
+    (Módulo Contenedor(Base Contenedor) (nave3)) ~=? impactar(Babor,1,Grande) nave4,
+    (Módulo Escudo (nave6) (nave5))  ~=? impactar(Babor,0,Grande) (Módulo Escudo (nave6) (nave5))
+
   ]
 
 testsEj6 = test [
   nave1 ~=? maniobrar nave1  [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)],
-	puroContenedor ~=? maniobrar nave7 [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)]
+	puroContenedor ~=? maniobrar nave7 [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)],
+  nave9impactada ~=? maniobrar nave9 [(Babor, 0, Grande),(Babor,2,Torpedo),(Estribor,0,Pequeño)]
+
   ]
 
 testsEj7 = test [
@@ -117,5 +152,5 @@ testsEj8 = test [
 
 
 --Ejemplos de referencia para maniobrar:
---maniobrar nave9 [(Babor, 0, Grande),(Babor,2,Torpedo),(Estribor,0,Pequeño)] destruye solo el subárbol izquierdo del subárbol izquierdo.
---maniobrar nave9 [(Estribor,0,Pequeño),(Babor,2,Torpedo),(Babor, 1, Grande)] destruye todo el subárbol izquierdo.
+ 
+
