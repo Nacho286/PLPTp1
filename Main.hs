@@ -149,6 +149,9 @@ testsEj7 = test [
   ]
 
 testsEj8 = test [
+   2 ~=? componentesPorNivel cazadorLigero 3,
+   4 ~=? componentesPorNivel cazadorLigero 2,
+   32 ~=? componentesPorNivel acorazado 5,
   (4,6) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)]),
   (1,1) ~=? dimensiones nave1,
   (4,8) ~=? dimensiones nave9,
