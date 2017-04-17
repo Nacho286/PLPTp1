@@ -27,7 +27,8 @@ nave11 = Módulo Escudo
 nave12 = Módulo Escudo
         (Módulo Escudo (Base Contenedor) (Módulo Motor (Base Contenedor) (Base Motor)))
         (Módulo Escudo (Módulo Contenedor (Base Motor) (Base Contenedor)) (Módulo Escudo (Base Cañón) (Base Escudo)))
-
+nave13=  Módulo Contenedor (Módulo Motor (Base Cañón) (Base Cañón)) (Módulo Cañón(Base Cañón) (Base Motor))
+nave14 = Módulo Contenedor (Módulo Contenedor(Módulo Cañón(Base Cañón)(Base Motor)) (Módulo Motor(Base Cañón)(Base Cañón)))(Base Motor)
 soloUnMotor = Base Motor
 puroContenedor = Módulo Contenedor (Base Contenedor) (Base Contenedor)
 tresCañones = Módulo Cañón (Base Cañón) (Base Cañón)
@@ -76,8 +77,16 @@ testsEj3 = test [
 	nave9 ~=? mayorCapacidad [nave1,nave9,nave2,nave3,protegido,puroContenedor,nave11,otroCañon,desbalanceado]
   ]
 
+
+
+
 testsEj4 = test [
-  0 ~=? 0 --Cambiar esto por tests verdaderos.
+  puroContenedor ~=? transformar (\c-> Contenedor) nave2,
+  puroContenedor ~=? transformar (\c-> Contenedor) nave3,
+  nave13         ~=? transformar (\c->if c == Escudo then Cañón else c) nave5,
+  nave5          ~=? transformar (\c->c) nave5,
+  nave14         ~=? transformar (\c->if c == Escudo then Cañón else c) nave6,
+  soloUnMotor    ~=? transformar(\c->Motor) contenedorSolo
   ]
 
 testsEj5 = test [
