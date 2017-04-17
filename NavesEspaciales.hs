@@ -26,18 +26,18 @@ toInt:: Bool-> Int
 toInt True = 1
 toInt False = 0
 
-esComponente:: Componente-> Componente->Bool
-esComponente c1 c2 = c1 == c2
+mismosComponentes:: Componente-> Componente->Bool
+mismosComponentes c1 c2 = c1 == c2
 
 poderDeVuelo:: NaveEspacial -> Int
-poderDeVuelo = foldNave(toInt.esComponente Motor) (\c x y -> x + y + toInt(esComponente Motor c))
+poderDeVuelo = foldNave(toInt.mismosComponentes Motor) (\c x y -> x + y + toInt(mismosComponentes Motor c))
 
 poderDeDefensa:: NaveEspacial -> Int
-poderDeDefensa = foldNave(toInt.esComponente Escudo) (\c x y -> x + y + toInt(esComponente Escudo c))
+poderDeDefensa = foldNave(toInt.mismosComponentes Escudo) (\c x y -> x + y + toInt(mismosComponentes Escudo c))
 
---igualesComponentes:: (NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->NaveEspacial->NaveEspacial->Bool
+--igualmismosComponentess:: (NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->(NaveEspacial->Int)->NaveEspacial->NaveEspacial->Bool
 --
-igualesComponentes f1 f2 f3 f4 x y = f1 x == f1 y && f2 x == f2 y && f3 x == f3 y && f4 x == f4 y
+igualmismosComponentess f1 f2 f3 f4 x y = f1 x == f1 y && f2 x == f2 y && f3 x == f3 y && f4 x == f4 y
 
 
 --Ejercicio 1
@@ -48,20 +48,20 @@ foldNave f g (Módulo c n1 n2) = g  c (foldNave f g n1) (foldNave f g n2)
 
 --Ejercicio 2
 capacidad :: NaveEspacial -> Int
-capacidad = foldNave (toInt.esComponente Contenedor) (\c x y -> x + y + toInt(esComponente Contenedor c))
+capacidad = foldNave (toInt.mismosComponentes Contenedor) (\c x y -> x + y + toInt(mismosComponentes Contenedor c))
 
 
 poderDeAtaque :: NaveEspacial -> Int
-poderDeAtaque = foldNave(toInt.esComponente Cañón) (\c x y -> x + y + toInt(esComponente Cañón c))
+poderDeAtaque = foldNave(toInt.mismosComponentes Cañón) (\c x y -> x + y + toInt(mismosComponentes Cañón c))
 
 
 puedeVolar :: NaveEspacial -> Bool
-puedeVolar = foldNave (esComponente Motor) (\c x y -> x || y || (esComponente Motor c))
+puedeVolar = foldNave (mismosComponentes Motor) (\c x y -> x || y || (mismosComponentes Motor c))
 
 
 mismoPotencial :: NaveEspacial -> NaveEspacial -> Bool
 mismoPotencial =(\x y ->(capacidad x)==(capacidad y) &&(poderDeAtaque x)==(poderDeAtaque y) && (poderDeDefensa x) == (poderDeDefensa y) && (poderDeVuelo x) == (poderDeVuelo y))
---mismoPotencial = igualesComponentes capacidad poderDeAtaque poderDeDefensa poderDeVuelo
+--mismoPotencial = igualmismosComponentess capacidad poderDeAtaque poderDeDefensa poderDeVuelo
 
 
 ----Ejercicio 3
@@ -88,12 +88,12 @@ thrdTripla (_,_,z) = z
 --En el caso Base c puse lo mismo que en defiendeTipoPeligroPequeño porque me sale fuera de scope. Mejorar
 
 desenlaceAlImpacto :: TipoPeligro -> NaveEspacial -> NaveEspacial
-desenlaceAlImpacto t (Base c) = if t==Pequeño && esComponente Escudo c then (Base c) else Base Contenedor
+desenlaceAlImpacto t (Base c) = if t==Pequeño && mismosComponentes Escudo c then (Base c) else Base Contenedor
 desenlaceAlImpacto t (Módulo c n1 n2)
  | defiendeTipoPeligroGrande || defiendeTipoPeligroPequeño = (Módulo c n1 n2)
  | otherwise = (Base Contenedor)
- where defiendeTipoPeligroGrande = t==Grande && esComponente Escudo c && (poderDeAtaque n1 >0 || poderDeAtaque n2 >0)
-       defiendeTipoPeligroPequeño = t==Pequeño && esComponente Escudo c
+ where defiendeTipoPeligroGrande = t==Grande && mismosComponentes Escudo c && (poderDeAtaque n1 >0 || poderDeAtaque n2 >0)
+       defiendeTipoPeligroPequeño = t==Pequeño && mismosComponentes Escudo c
 
 
 
