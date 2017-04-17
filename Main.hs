@@ -133,12 +133,19 @@ testsEj5 = test [
 testsEj6 = test [
   nave1 ~=? maniobrar nave1  [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)],
 	puroContenedor ~=? maniobrar nave7 [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)],
-  nave9impactada ~=? maniobrar nave9 [(Babor, 0, Grande),(Babor,2,Torpedo),(Estribor,0,Pequeño)]
-
+  nave9impactada ~=? maniobrar nave9 [(Babor, 0, Grande),(Babor,2,Torpedo),(Estribor,0,Pequeño)],
+  acorazado ~=? maniobrar acorazado   [(Babor,5, Pequeño),(Babor,4,Pequeño),(Babor,3,Grande),(Estribor,5, Pequeño),(Estribor,4,Pequeño),(Estribor,3,Grande)]
+  
   ]
 
 testsEj7 = test [
-  3 ~=? length (pruebaDeFuego [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)] [nave1,nave2,nave3,nave4,nave5,nave6,nave7,nave8,nave9])
+  3 ~=? length (pruebaDeFuego [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)] [nave1,nave2,nave3,nave4,nave5,nave6,nave7,nave8,nave9]),
+  3 ~=? length (pruebaDeFuego [(Babor,1,Pequeño),(Estribor,2,Torpedo),(Estribor, 2, Pequeño)] [cazadorLigero,acorazado,destructor]),
+  3 ~=? length (pruebaDeFuego [(Babor,1,Pequeño),(Estribor,2,Torpedo),(Estribor, 2, Pequeño),(Babor,2,Torpedo),(Babor,2,Torpedo)] [cazadorLigero,acorazado,destructor]),
+  3 ~=? length (pruebaDeFuego [(Babor,1,Pequeño),(Estribor,2,Torpedo),(Estribor, 2, Pequeño),(Babor,2,Torpedo),(Babor,2,Torpedo)] [cazadorLigero,acorazado,destructor]),
+  0 ~=? length (pruebaDeFuego [(Estribor,1,Torpedo),(Babor, 1, Torpedo)] [cazadorLigero,acorazado,destructor]),
+  2 ~=? length (pruebaDeFuego [(Estribor,1,Grande),(Babor, 1, Grande),(Babor,2,Torpedo)] [cazadorLigero,acorazado,destructor])
+  
   ]
 
 testsEj8 = test [
@@ -151,6 +158,6 @@ testsEj8 = test [
   ]
 
 
---Ejemplos de referencia para maniobrar:
+
  
 
