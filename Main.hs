@@ -92,18 +92,18 @@ allTests = test [
 testsEj2 = test [
   0 ~=? capacidad soloUnMotor,
   3 ~=? capacidad puroContenedor,
-	0 ~=? poderDeAtaque nave1,
+  0 ~=? poderDeAtaque nave1,
   2 ~=? poderDeAtaque nave9,
-	True ~=? puedeVolar soloUnMotor,
+  True ~=? puedeVolar soloUnMotor,
   False ~=? puedeVolar protegido,
-	True ~=? mismoPotencial nave2 nave3,
+  True ~=? mismoPotencial nave2 nave3,
   False ~=? mismoPotencial puroContenedor protegido
   ]
 
 testsEj3 = test [
   nave1 ~=? mayorCapacidad [nave1],
-	nave12 ~=? mayorCapacidad [nave1,nave9,nave2,nave3,protegido,puroContenedor,nave12,nave11,otroCañon,desbalanceado],
-	nave9 ~=? mayorCapacidad [nave1,nave9,nave2,nave3,protegido,puroContenedor,nave11,otroCañon,desbalanceado]
+  nave12 ~=? mayorCapacidad [nave1,nave9,nave2,nave3,protegido,puroContenedor,nave12,nave11,otroCañon,desbalanceado],
+  nave9 ~=? mayorCapacidad [nave1,nave9,nave2,nave3,protegido,puroContenedor,nave11,otroCañon,desbalanceado]
   ]
 
 testsEj4 = test [
@@ -116,26 +116,24 @@ testsEj4 = test [
   ]
 
 testsEj5 = test [
-    nave9 ~=? impactar (Babor, 0, Grande) nave9,
-    contenedorSolo ~=? impactar (Babor, 0, Torpedo) nave9,
-    nave11 ~=? impactar (Babor, 1, Grande) nave10,
-    nave12 ~=? impactar (Babor, 2, Grande) nave10,
-    (Base Contenedor) ~=? impactar (Babor, 0, Pequeño) nave1,
-    Base Contenedor ~=? impactar(Babor,0,Pequeño) nave6,
-    Base Contenedor ~=? impactar(Babor,0,Torpedo) nave6,
-    Base Contenedor ~=? impactar(Babor,0,Grande) nave6,
-    nave4 ~=? impactar(Babor,2,Pequeño) nave4,
-    (Módulo Contenedor(Base Contenedor) (nave3)) ~=? impactar(Babor,1,Grande) nave4,
-    (Módulo Escudo (nave6) (nave5))  ~=? impactar(Babor,0,Grande) (Módulo Escudo (nave6) (nave5))
-
+  nave9 ~=? impactar (Babor, 0, Grande) nave9,
+  contenedorSolo ~=? impactar (Babor, 0, Torpedo) nave9,
+  nave11 ~=? impactar (Babor, 1, Grande) nave10,
+  nave12 ~=? impactar (Babor, 2, Grande) nave10,
+  (Base Contenedor) ~=? impactar (Babor, 0, Pequeño) nave1,
+  Base Contenedor ~=? impactar(Babor,0,Pequeño) nave6,
+  Base Contenedor ~=? impactar(Babor,0,Torpedo) nave6,
+  Base Contenedor ~=? impactar(Babor,0,Grande) nave6,
+  nave4 ~=? impactar(Babor,2,Pequeño) nave4,
+  (Módulo Contenedor(Base Contenedor) (nave3)) ~=? impactar(Babor,1,Grande) nave4,
+  (Módulo Escudo (nave6) (nave5))  ~=? impactar(Babor,0,Grande) (Módulo Escudo (nave6) (nave5))
   ]
 
 testsEj6 = test [
   nave1 ~=? maniobrar nave1  [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)],
-	puroContenedor ~=? maniobrar nave7 [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)],
+  puroContenedor ~=? maniobrar nave7 [(Babor,1,Grande),(Babor,2,Torpedo),(Estribor, 1, Pequeño)],
   nave9impactada ~=? maniobrar nave9 [(Babor, 0, Grande),(Babor,2,Torpedo),(Estribor,0,Pequeño)],
   acorazado ~=? maniobrar acorazado   [(Babor,5, Pequeño),(Babor,4,Pequeño),(Babor,3,Grande),(Estribor,5, Pequeño),(Estribor,4,Pequeño),(Estribor,3,Grande)]
-  
   ]
 
 testsEj7 = test [
@@ -145,22 +143,15 @@ testsEj7 = test [
   3 ~=? length (pruebaDeFuego [(Babor,1,Pequeño),(Estribor,2,Torpedo),(Estribor, 2, Pequeño),(Babor,2,Torpedo),(Babor,2,Torpedo)] [cazadorLigero,acorazado,destructor]),
   0 ~=? length (pruebaDeFuego [(Estribor,1,Torpedo),(Babor, 1, Torpedo)] [cazadorLigero,acorazado,destructor]),
   2 ~=? length (pruebaDeFuego [(Estribor,1,Grande),(Babor, 1, Grande),(Babor,2,Torpedo)] [cazadorLigero,acorazado,destructor])
-  
   ]
 
 testsEj8 = test [
-   2 ~=? componentesPorNivel cazadorLigero 3,
-   4 ~=? componentesPorNivel cazadorLigero 2,
-   32 ~=? componentesPorNivel acorazado 5,
+  2 ~=? componentesPorNivel cazadorLigero 3,
+  4 ~=? componentesPorNivel cazadorLigero 2,
+  32 ~=? componentesPorNivel acorazado 5,
   (4,6) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)]),
   (1,1) ~=? dimensiones nave1,
   (4,8) ~=? dimensiones nave9,
   (3,4) ~=? dimensiones nave4,
-	(3,2) ~=? dimensiones desbalanceado
-  --(4,6) ~=? (dimensiones $ maniobrar nave9 [(Babor,1,Grande),(Babor,2,Torpedo)])
+  (3,2) ~=? dimensiones desbalanceado
   ]
-
-
-
- 
-
